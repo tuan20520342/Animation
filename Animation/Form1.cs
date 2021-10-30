@@ -12,18 +12,15 @@ namespace Animation
 {
     public partial class Form1 : Form
     {
-        int n = 0;
-        Point[] a = new Point[100];
-        SolidBrush[] abrush = new SolidBrush[100];
-        Graphics g;
-        
         public Form1()
         {
             InitializeComponent();
+            CreateGraphics();
             DoubleBuffered = true;
-            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         }
-        
+        int n = 0;
+        Point[] a = new Point[100];
+        SolidBrush[] abrush = new SolidBrush[100];
         private Color RandomColor()
         {
             timer1.Start();
@@ -54,10 +51,7 @@ namespace Animation
             a[n].X = e.X;
             a[n].Y = e.Y;
             SolidBrush mybrush = new SolidBrush(RandomColor());
-            abrush[n] = mybrush;
-            g = this.CreateGraphics();
-            Rectangle shape = new Rectangle(a[n].X, a[n].Y, 50, 50);
-            g.FillEllipse(mybrush, shape);
+            abrush[n] = mybrush;         
             n = n + 1;
         }
 
@@ -67,9 +61,8 @@ namespace Animation
             {
                 a[i].Y = a[i].Y + 5;
                 Rectangle shape = new Rectangle(a[i].X, a[i].Y, 50, 50);
-                g.FillEllipse(abrush[i], shape);
-            }
-            
+                e.Graphics.FillEllipse(abrush[i], shape);
+            }        
         }
 
         private void timer1_Tick(object sender, EventArgs e)
